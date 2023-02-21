@@ -47,7 +47,7 @@ public class UserService {
     public User 로그인(LoginReqDto loginReqDto) {
         User userPS = userRepository.findByUsername(loginReqDto.getUsername());
 
-        boolean isCheck = false;
+        boolean isCheck;
 
         try {
             isCheck = Encode.matches(loginReqDto.getPassword(), userPS.getPassword());

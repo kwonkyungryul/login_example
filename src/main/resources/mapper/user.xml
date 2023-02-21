@@ -5,7 +5,7 @@
 
 <mapper namespace="shop.mtcoding.loginexample.model.UserRepository">
     <select id="findAll" resultType="shop.mtcoding.loginexample.model.User">
-        select * from user_tb order by 1 desc
+        select * from user_tb
     </select>
 
     <select id="findById" resultType="shop.mtcoding.loginexample.model.User">
@@ -29,6 +29,6 @@
     </delete>    
 
     <update id="updateById" >
-        update user_tb set username= #{username},password= #{password}, email= #{email}, profile = #{profile}, created_at = #{createdAt} where id = #{id} 
+        update user_tb set username= #{username},password= #{password}, email= #{email}, created_at = #{createdAt} where id = #{id} 
     </update>
 </mapper>

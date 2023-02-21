@@ -9,6 +9,8 @@ public interface UserRepository {
     public List<User> findAll();
 
     public User findById(int id);
+
+    public User findByUsername(String username);
     
     public int insert(User user);
 

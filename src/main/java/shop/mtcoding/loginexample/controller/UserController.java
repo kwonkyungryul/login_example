@@ -26,9 +26,9 @@ public class UserController {
     @GetMapping("/")
     public String mainPage() {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            throw new CustomException("잘못된 접근입니다. 로그인을 해주세요.", HttpStatus.UNAUTHORIZED);
-        }
+        // if (principal == null) {
+        //     throw new CustomException("잘못된 접근입니다. 로그인을 해주세요.", HttpStatus.UNAUTHORIZED);
+        // }
         
         return "main";
     }

@@ -1,7 +1,10 @@
 package shop.mtcoding.loginexample.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import javax.servlet.http.HttpSession;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
+
+import shop.mtcoding.loginexample.model.User;
 
  @Transactional
  @AutoConfigureMockMvc
@@ -32,4 +37,23 @@ import org.springframework.transaction.annotation.Transactional;
          // then
          resultActions.andExpect(status().is3xxRedirection());
      }
+
+     @Test
+    public void login_test() throws Exception {
+        // given
+        String requestBody = "username=ssar&password=1234";
+
+        // when
+        // mvc.perform 으로 컨트롤러를 때려볼 수 있다. content로 값을 넣으면 타입을 정해주어야 한다. -> content.Type
+        ResultActions resultActions = mvc.perform(post("/login").content(requestBody).contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE));
+        HttpSession session = resultActions.andReturn().getRequest().getSession();
+        User principal = (User) session.getAttribute("principal");
+        System.out.println(principal.getUsername());
+
+        // then
+        assertThat(principal.getId()).isEqualTo(1);
+        assertThat(principal.getUsername()).isEqualTo("ssar");
+        assertThat(principal.getEmail()).isEqualTo("ssar@nate.com");
+        resultActions.andExpect(status().is3xxRedirection());
+    }
 }
